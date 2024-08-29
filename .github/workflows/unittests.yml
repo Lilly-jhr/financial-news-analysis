@@ -1,32 +1,38 @@
 name: Run Unit Tests
 
+# Trigger the workflow on push or pull request events
 on: [push, pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
+      # Step 1: Checkout the code from your repository
       - name: Checkout code
         uses: actions/checkout@v2
 
+      # Step 2: Set up Python environment
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.10'  # Consider using a stable version of Python
+          python-version: '3.10'  # Using a stable Python version
 
+      # Step 3: Install system dependencies
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential python3-dev
-          # Install TA-Lib dependencies
-          sudo apt-get install -y libta-lib0 libta-lib-dev
-          # Install Python package tools using pip
+          sudo apt-get install -y build-essential python3-dev libta-lib0 libta-lib-dev
+
+      # Step 4: Install Python dependencies
+      - name: Install Python dependencies
+        run: |
           python -m pip install --upgrade pip setuptools wheel
-          # Install TA-Lib Python package using pip
           pip install ta-lib
-          # Install other project dependencies
           pip install -r requirements.txt
 
+      # Step 5: Run tests using pytest
       - name: Run tests
         run: |
           pytest
+
