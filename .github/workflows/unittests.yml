@@ -17,10 +17,11 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential python3-dev
-          # Install TA-Lib from source
-          git clone https://github.com/mrjbq7/ta-lib.git
-          cd ta-lib
+          sudo apt-get install -y build-essential python3-dev wget
+          # Download and install TA-Lib from source
+          wget https://github.com/mrjbq7/ta-lib/archive/refs/tags/0.4.0.tar.gz
+          tar -xzf 0.4.0.tar.gz
+          cd ta-lib-0.4.0
           ./configure --prefix=/usr
           make
           sudo make install
