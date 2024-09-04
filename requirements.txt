@@ -7,3 +7,4 @@ seaborn
 ta-lib
 PyNance
 pytest
+pyLDAvis
